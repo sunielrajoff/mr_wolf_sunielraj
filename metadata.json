@@ -1,5 +1,5 @@
 {
   "name": "EduCycle",
-  "description": "A community-driven toolkit for smarter career starts, focusing on sharing and reusing academic items among college students.",
+  "description": "A community-driven toolkit for smarter career starts, focusing on sharing and reusing academic items among college students, now with local storage permission, dedicated new user registration with custom student IDs, and a junior-to-senior promotion system.",
   "requestFramePermissions": []
 }

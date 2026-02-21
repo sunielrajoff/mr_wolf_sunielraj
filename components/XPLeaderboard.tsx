@@ -16,14 +16,13 @@ const XPLeaderboard: React.FC<XPLeaderboardProps> = ({ leaderboardUsers }) => {
       setMotivationQuote(quote);
     };
     fetchQuote();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Fetch quote only once on component mount
 
   return (
-    <div className="bg-white bg-opacity-90 backdrop-blur-sm p-6 rounded-lg shadow-2xl border border-gray-300 max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold text-emerald-700 mb-6 text-center">Senior Contribution Leaderboard</h2>
+    <div className="bg-white bg-opacity-95 backdrop-blur-lg p-6 rounded-2xl shadow-2xl border-2 border-indigo-100 max-w-4xl mx-auto font-nunito">
+      <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">Senior Contribution Leaderboard</h2>
       <p className="text-center text-gray-600 mb-8 italic">
-        "{motivationQuote}"
+        &#34;{motivationQuote}&#34;
       </p>
 
       {leaderboardUsers.length === 0 ? (
@@ -54,7 +53,7 @@ const XPLeaderboard: React.FC<XPLeaderboardProps> = ({ leaderboardUsers }) => {
               {leaderboardUsers.map((user, index) => (
                 <tr
                   key={user.id}
-                  className={`${index === 0 ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold' : 'hover:bg-gray-50 transition-colors'}`}
+                  className={`${index === 0 ? 'bg-gradient-to-r from-yellow-300 to-orange-400 text-gray-900 font-extrabold shadow-md transform scale-100 hover:scale-[1.01] transition-transform duration-200 ease-out' : 'hover:bg-gray-50 transition-colors'}`}
                 >
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                     {index + 1}
@@ -65,7 +64,7 @@ const XPLeaderboard: React.FC<XPLeaderboardProps> = ({ leaderboardUsers }) => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                     {user.course} ({user.year})
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-emerald-600">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600">
                     {user.xpPoints}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">

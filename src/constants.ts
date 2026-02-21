@@ -1,4 +1,3 @@
-
 import { ItemCategory, ItemStatus, PickupPoint, Item, User } from './types';
 
 export const XP_VALUES: Record<ItemCategory, number> = {

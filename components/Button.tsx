@@ -19,12 +19,12 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   ...props
 }) => {
-  const baseStyles = 'font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-75';
+  const baseStyles = 'font-medium rounded-lg transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-opacity-75 transform-gpu';
   
   const variantStyles = {
-    primary: 'bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white focus:ring-emerald-500',
-    secondary: 'bg-gray-200 hover:bg-gray-300 active:bg-gray-400 text-gray-800 focus:ring-gray-400',
-    danger: 'bg-red-600 hover:bg-red-700 active:bg-red-800 text-white focus:ring-red-500',
+    primary: 'bg-green-600 hover:bg-green-700 active:bg-green-800 text-white focus:ring-green-500 shadow-md hover:shadow-lg active:shadow-inner hover:scale-105',
+    secondary: 'bg-sky-200 hover:bg-sky-300 active:bg-sky-400 text-sky-800 focus:ring-sky-400 shadow-sm hover:shadow-md active:shadow-inner hover:scale-105',
+    danger: 'bg-red-600 hover:bg-red-700 active:bg-red-800 text-white focus:ring-red-500 shadow-md hover:shadow-lg active:shadow-inner hover:scale-105',
   };
 
   const sizeStyles = {

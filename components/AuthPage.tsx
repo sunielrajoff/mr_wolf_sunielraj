@@ -1,15 +1,17 @@
 
 import React, { useState } from 'react';
-import { AuthDetails, User } from '../types';
+import { AuthDetails, User, PermissionStatus } from '../types';
 import Button from './Button';
 
 interface AuthPageProps {
   onLogin: (authDetails: AuthDetails) => void;
-  onRegister: (newUserDetails: Omit<User, 'xpPoints'>) => void;
+  onRegisterUser: (newUserDetails: Omit<User, 'xpPoints' | 'computerYear'>) => void;
   errorMessage: string | null;
+  permissionStatus: PermissionStatus;
+  onGrantPermission: (granted: boolean) => void;
 }
 
-const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegister, errorMessage }) => {
+const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegisterUser, errorMessage, permissionStatus, onGrantPermission }) => {
   const [email, setEmail] = useState('');
   const [id, setId] = useState('');
   const [course, setCourse] = useState('');
@@ -26,7 +28,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegister, errorMessage }
         // Basic validation for registration fields
         return;
       }
-      onRegister({ email, id, course, year: Number(year), isSenior });
+      onRegisterUser({ email, id, course, year: Number(year), isSenior }); // computerYear is set in authService
     } else {
       onLogin({ email, id });
     }
@@ -44,8 +46,8 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegister, errorMessage }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] p-4">
-      <div className="bg-white bg-opacity-90 backdrop-blur-sm p-8 rounded-lg shadow-2xl w-full max-w-md border border-gray-300">
-        <h2 className="text-3xl font-bold text-emerald-700 mb-6 text-center">
+      <div className="bg-white bg-opacity-95 backdrop-blur-lg p-8 rounded-2xl shadow-2xl w-full max-w-md border-2 border-indigo-100">
+        <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">
           EduCycle {isRegistering ? 'Registration' : 'Login'}
         </h2>
         <p className="text-center text-gray-600 mb-8">
@@ -53,6 +55,18 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegister, errorMessage }
             ? 'Create your account to start sharing and reusing academic resources.'
             : 'Enter your college email and identification number to access the platform. Verified accounts ensure trust within our campus community.'}
         </p>
+        {permissionStatus === 'denied' && (
+          <p className="text-red-600 text-sm text-center mb-4">
+            Local storage permission denied. Your data will not be saved on this device.
+            Please grant permission to enable full functionality.
+            <button
+              onClick={() => onGrantPermission(true)}
+              className="font-bold underline ml-1"
+            >
+              Grant Permission
+            </button>
+          </p>
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-gray-700 text-sm font-semibold mb-2">
@@ -61,7 +75,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegister, errorMessage }
             <input
               type="email"
               id="email"
-              className="w-full p-3 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+              className="w-full p-3 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
               placeholder="your.email@college.edu"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -75,7 +89,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegister, errorMessage }
             <input
               type="text"
               id="id"
-              className="w-full p-3 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+              className="w-full p-3 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
               placeholder="Unique ID (e.g., SENIOR001, JUNIOR001)"
               value={id}
               onChange={(e) => setId(e.target.value)}
@@ -92,7 +106,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegister, errorMessage }
                 <input
                   type="text"
                   id="course"
-                  className="w-full p-3 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+                  className="w-full p-3 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
                   placeholder="e.g., Computer Science, Electrical Engineering"
                   value={course}
                   onChange={(e) => setCourse(e.target.value)}
@@ -106,7 +120,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegister, errorMessage }
                 <input
                   type="number"
                   id="year"
-                  className="w-full p-3 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+                  className="w-full p-3 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
                   placeholder="e.g., 2025"
                   value={year}
                   onChange={(e) => setYear(Number(e.target.value) || '')}
@@ -119,7 +133,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegister, errorMessage }
                 <input
                   type="checkbox"
                   id="isSenior"
-                  className="form-checkbox h-5 w-5 text-emerald-600 bg-gray-50 border-gray-300 rounded focus:ring-emerald-500"
+                  className="form-checkbox h-5 w-5 text-green-600 bg-gray-50 border-gray-300 rounded focus:ring-green-500"
                   checked={isSenior}
                   onChange={(e) => setIsSenior(e.target.checked)}
                 />
@@ -153,7 +167,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin, onRegister, errorMessage }
           {isRegistering ? 'Already have an account?' : "Don't have an account?"}{' '}
           <button
             onClick={toggleMode}
-            className="font-bold underline text-emerald-600 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-md p-1 -m-1"
+            className="font-bold underline text-green-600 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-md p-1 -m-1"
           >
             {isRegistering ? 'Login here' : 'Register here'}
           </button>

@@ -31,6 +31,7 @@ export interface User {
   course: string; // e.g., 'Computer Science', 'Electrical Engineering'
   year: number; // e.g., 2024, 2025 (representing graduation year or current academic year)
   xpPoints: number;
+  computerYear: number; // New property to track computer year for juniors/seniors
 }
 
 export interface Item {
@@ -54,4 +55,6 @@ export interface AuthDetails {
   id: string;
 }
 
-export type View = 'dashboard' | 'share-item' | 'leaderboard';
+export type View = 'dashboard' | 'share-item' | 'leaderboard' | 'promote-self';
+
+export type PermissionStatus = 'granted' | 'denied' | 'prompt';

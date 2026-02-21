@@ -12,7 +12,8 @@ interface DashboardProps {
   users: User[]; // Pass all users to resolve senior names for display
   onItemRequest: (itemId: string, juniorId: string) => void;
   onMarkAsPickedUp: (itemId: string, juniorId: string) => void;
-  onViewChange: (view: 'dashboard' | 'share-item' | 'leaderboard') => void;
+  onViewChange: (view: 'dashboard' | 'share-item' | 'leaderboard' | 'promote-self') => void;
+  onUserUpdate: (updatedUser: User) => void;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
@@ -54,9 +55,9 @@ const Dashboard: React.FC<DashboardProps> = ({
     });
 
   return (
-    <div className="space-y-8">
-      <div className="bg-white bg-opacity-90 p-6 rounded-lg shadow-xl border border-gray-300 text-center">
-        <h2 className="text-4xl font-extrabold text-emerald-700 mb-3">
+    <div className="space-y-8 font-nunito">
+      <div className="bg-white bg-opacity-95 p-6 rounded-2xl shadow-xl border-2 border-indigo-100 text-center">
+        <h2 className="text-4xl font-extrabold text-green-700 mb-3">
           Welcome, {currentUser.email.split('@')[0]}!
         </h2>
         <p className="text-xl text-gray-700 mb-4">
@@ -65,7 +66,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             : `You are a Junior (${currentUser.course}, Class of ${currentUser.year}). Explore and learn!`}
         </p>
         <p className="text-lg text-gray-600">
-          Your current XP: <span className="font-bold text-emerald-600">{currentUser.xpPoints}</span>
+          Your current XP: <span className="font-bold text-green-600">{currentUser.xpPoints}</span>
         </p>
         {currentUser.isSenior && (
           <div className="mt-6">
@@ -74,9 +75,16 @@ const Dashboard: React.FC<DashboardProps> = ({
             </Button>
           </div>
         )}
+        {!currentUser.isSenior && (
+          <div className="mt-6">
+            <Button onClick={() => onViewChange('promote-self')} size="lg" className="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white">
+              Complete Computer Year
+            </Button>
+          </div>
+        )}
       </div>
 
-      <h3 className="text-2xl font-bold text-emerald-700 mb-4 ml-2">
+      <h3 className="text-2xl font-bold text-green-700 mb-4 ml-2">
         {currentUser.isSenior ? 'Your Shared & Requested Items' : 'Available & Your Requested Items'}
       </h3>
       <ItemList

@@ -57,13 +57,13 @@ const ItemList: React.FC<ItemListProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="bg-white bg-opacity-90 p-4 rounded-lg shadow-md flex flex-col sm:flex-row items-center gap-4 border border-gray-300">
+      <div className="bg-white bg-opacity-95 p-4 rounded-xl shadow-xl flex flex-col sm:flex-row items-center gap-4 border-2 border-indigo-100">
         <label htmlFor="search" className="sr-only">Search Items</label>
         <input
           type="text"
           id="search"
           placeholder="Search items by name or description..."
-          className="flex-grow w-full sm:w-auto p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+          className="flex-grow w-full sm:w-auto p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
         />
@@ -72,7 +72,7 @@ const ItemList: React.FC<ItemListProps> = ({
           id="categoryFilter"
           value={currentFilter}
           onChange={(e) => onFilterChange(e.target.value as ItemCategoryEnum | 'All')}
-          className="w-full sm:w-auto p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+          className="w-full sm:w-auto p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
         >
           <option value="All">All Categories</option>
           {Object.values(ItemCategory).map((category) => (
@@ -90,7 +90,7 @@ const ItemList: React.FC<ItemListProps> = ({
           {filteredItems.map((item) => (
             <div
               key={item.id}
-              className="bg-white bg-opacity-90 backdrop-blur-sm rounded-lg shadow-xl overflow-hidden flex flex-col border border-gray-300"
+              className="bg-white bg-opacity-95 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden flex flex-col border-2 border-indigo-100"
             >
               <img
                 src={item.imageUrl || `https://picsum.photos/400/250?random=${item.id}`}
@@ -98,7 +98,7 @@ const ItemList: React.FC<ItemListProps> = ({
                 className="w-full h-48 object-cover object-center"
               />
               <div className="p-4 flex-grow flex flex-col">
-                <h3 className="text-xl font-bold text-emerald-700 mb-2">{item.name}</h3>
+                <h3 className="text-xl font-bold text-green-700 mb-2">{item.name}</h3>
                 <p className="text-gray-700 text-sm mb-1">
                   <span className="font-semibold">Category:</span> {item.category}
                 </p>
@@ -108,7 +108,7 @@ const ItemList: React.FC<ItemListProps> = ({
                   <span
                     className={`font-semibold ${
                       item.status === ItemStatus.AVAILABLE ? 'text-green-600' :
-                      item.status === ItemStatus.REQUESTED ? 'text-yellow-600' : 'text-blue-600'
+                      item.status === ItemStatus.REQUESTED ? 'text-yellow-600' : 'text-sky-600'
                     }`}
                   >
                     {item.status}
@@ -123,7 +123,7 @@ const ItemList: React.FC<ItemListProps> = ({
                   </p>
                 )}
 
-                <div className="mt-auto pt-3 border-t border-gray-300 flex flex-col space-y-2">
+                <div className="mt-auto pt-3 border-t border-gray-200 flex flex-col space-y-2">
                   {canRequest(item) && (
                     <Button onClick={() => onItemRequest(item.id, currentUser.id)} className="w-full">
                       Request Item
@@ -132,7 +132,8 @@ const ItemList: React.FC<ItemListProps> = ({
                   {canMarkAsPickedUp(item) && (
                     <Button
                       onClick={() => item.juniorId && onMarkAsPickedUp(item.id, item.juniorId)}
-                      className="w-full bg-blue-600 hover:bg-blue-700"
+                      className="w-full bg-sky-600 hover:bg-sky-700"
+                      variant='secondary'
                     >
                       Mark as Picked Up
                     </Button>
@@ -144,7 +145,7 @@ const ItemList: React.FC<ItemListProps> = ({
                     <p className="text-yellow-600 text-center font-semibold">You requested this!</p>
                   )}
                   {item.seniorId === currentUser.id && (
-                    <p className="text-emerald-500 text-center text-sm">
+                    <p className="text-green-500 text-center text-sm">
                       (Your item, {item.xpValue} XP value)
                     </p>
                   )}

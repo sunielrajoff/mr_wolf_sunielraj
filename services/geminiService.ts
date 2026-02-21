@@ -32,7 +32,7 @@ export const generateMotivationQuote = async (): Promise<string> => {
       if (error.message.includes("API key not valid") || error.message.includes("Requested entity was not found.")) {
         // Assume API key issue, prompt user to select.
         // In a real app, you might want to show a more explicit UI message.
-        if (window.aistudio && window.aistudio.openSelectKey) {
+        if (typeof window !== 'undefined' && window.aistudio && window.aistudio.openSelectKey) {
             console.warn("Gemini API key might be missing or invalid. Attempting to open API key selection dialog.");
             // We assume success after opening the dialog as per guidelines.
             window.aistudio.openSelectKey();

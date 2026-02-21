@@ -38,10 +38,10 @@ const ItemForm: React.FC<ItemFormProps> = ({ currentUser, onAddItem }) => {
   };
 
   return (
-    <div className="bg-white bg-opacity-90 backdrop-blur-sm p-6 rounded-lg shadow-2xl border border-gray-300 max-w-2xl mx-auto">
-      <h2 className="text-3xl font-bold text-emerald-700 mb-6 text-center">Share a New Item</h2>
+    <div className="bg-white bg-opacity-95 backdrop-blur-lg p-6 rounded-2xl shadow-2xl border-2 border-indigo-100 max-w-2xl mx-auto">
+      <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">Share a New Item</h2>
       <p className="text-gray-700 text-center mb-8">
-        Help juniors by sharing your used academic resources. You'll earn XP points for every contribution!
+        Help juniors by sharing your used academic resources. You&#39;ll earn XP points for every contribution!
       </p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -51,7 +51,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ currentUser, onAddItem }) => {
           <input
             type="text"
             id="name"
-            className="w-full p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g., 'Linear Algebra Textbook', 'Chem Lab Coat'"
@@ -65,7 +65,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ currentUser, onAddItem }) => {
           <textarea
             id="description"
             rows={3}
-            className="w-full p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Provide a brief description of the item's condition, course relevance, etc."
@@ -78,7 +78,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ currentUser, onAddItem }) => {
           </label>
           <select
             id="category"
-            className="w-full p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500"
             value={category}
             onChange={(e) => setCategory(e.target.value as ItemCategory)}
           >
@@ -95,7 +95,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ currentUser, onAddItem }) => {
           </label>
           <select
             id="pickupPoint"
-            className="w-full p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500"
             value={pickupPoint}
             onChange={(e) => setPickupPoint(e.target.value as PickupPoint)}
           >
@@ -113,7 +113,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ currentUser, onAddItem }) => {
           <input
             type="text"
             id="imageUrl"
-            className="w-full p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full p-2 rounded-md bg-gray-50 border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="Paste image link here (e.g., from Imgur, Google Photos)"
